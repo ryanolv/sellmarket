@@ -45,10 +45,10 @@ module.exports = class ProductController {
         // Checking if product exists in the database
         const product = await Product.findByPk(code_product);
         if(!product) {
-            response.status(400).json({ message: "Produto não existe na base de dados"});
+            response.status(400).json({ message: "Produto não existe na base de dados."});
             return
         }
-
+        
         // Sending the datas product
         response.status(200).json(
             {
@@ -56,9 +56,46 @@ module.exports = class ProductController {
                 value_product: product.valor_produto,
                 name_product: product.nome_produto
             }
-        )
+            )
+            
+        }
+        
+        static async remove(request, response) {
+            
+            const { code_product, value_product, name_product } = request.body;
+            
+            // Validating datas entered
+            if(!code_product) {
+                response.status(400).json({ message: "Insira o código do produto."});
+                return
+            }
+            if(!value_product) {
+                response.status(400).json({ message: "Insira o valor do produto."});
+                return
+            }
+            if(!name_product) {
+                response.status(400).json({ message: "Insira o nome do produto."});
+                return
+            }
+            
+            // Checking if product is in the database
+            const product = await Product.findByPk(code_product);
+            if(!product) {
+                response.status(400).json({ message: "Produto não está inserido no banco de dados."});
+                return
+            }
 
+            // Deleting the product
+            if(name_product === product.nome_produto && value_product == product.valor_produto) {
+                await Product.destroy({ where: { cod_produto: code_product }})
+                    .then(response.status(200).json({ message: "Produto deletado com sucesso!" })
+                    ).catch(err => response.status(400).json({ message: "Não foi possível deletar o produto:", err }));
+            } else{
+                response.status(400).json({ message: "Dados inseridos não batem com o do produto registrado."})
+            }
 
-    }
+            
+            
+        }
 }
 
