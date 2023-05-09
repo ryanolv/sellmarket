@@ -8,22 +8,22 @@ module.exports = class SupplierController {
 
         // Validating datas
         if(!email_supplier) {
-            response.status(420).json({ "message": "Campo de email do fornecedor inválido!" });
+            response.status(420).json({ message: "Campo de email do fornecedor inválido!" });
             return
         }
         if(!name_supplier) {
-            response.status(420).json({ "message": "Campo de nome do fornecedor inválido!" });
+            response.status(420).json({ message: "Campo de nome do fornecedor inválido!" });
             return
         }
         if(!cnpj_supplier) {
-            response.status(420).json({ "message": "Campo de CNPJ do fornecedor inválido!" });
+            response.status(420).json({ message: "Campo de CNPJ do fornecedor inválido!" });
             return
         }
 
         // Checking if supplier exists 
-        const supplier = await Supplier.findOne({ where: { cnpj: cnpj_supplier } })
+        const supplier = await Supplier.findOne({ where: { cnpj: cnpj_supplier } });
         if(supplier !== null) {
-            response.status(420).json({ "message": "Fornecedor já está cadastrado!" })
+            response.status(420).json({ message: "Fornecedor já está cadastrado!" });
             return
         } 
 
@@ -40,10 +40,10 @@ module.exports = class SupplierController {
 
         const { cnpj_supplier } = request.body;
         
-        const supplier = await Supplier.findOne({ where: { cnpj: cnpj_supplier } })
+        const supplier = await Supplier.findOne({ where: { cnpj: cnpj_supplier } });
 
         if(supplier === null) {
-            response.status(420).json({ "message": "Fornecedor não existe na base de dados!" })
+            response.status(420).json({ message: "Fornecedor não existe na base de dados!" });
             return
         } else {
             response.status(200).json(
@@ -56,5 +56,35 @@ module.exports = class SupplierController {
             )
         } 
 
+    }
+
+    static async remove(request, response) {
+
+        const { cnpj_supplier, name_supplier, id_supplier } = request.body;
+
+        const supplier = await Supplier.findOne({ where: { cnpj: cnpj_supplier } });
+
+        // Checking if supplier exists
+        if(supplier === null) {
+            response.status(420).json({ message: "Fornecedor não existe na base de dados!" });
+            return
+        }
+
+        // Checking name requested
+        if(name_supplier !== supplier.nome_fornecedor) {
+            response.status(400).json({ message: "Nome não corresponde com o registrado na base de dados!"});
+            return
+        }
+
+        // Cheking id requested
+        if(id_supplier !== supplier.id_fornecedor) {
+            response.status(400).json({ message: "Id não corresponde com o registrado na base de dados!"});
+            return
+        }
+
+        await Supplier.destroy({ where: { id_funcionario: id_supplier }})
+                .then(response.status(200).json({ message: "Fornecedor deletado com sucesso!" })
+                ).catch(err => response.status(400).json({ message: "Não foi possível deletar fornecedor:", err }));
+            
     }
 }
