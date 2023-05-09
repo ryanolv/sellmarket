@@ -10,6 +10,8 @@ sequelize.authenticate()
     .then(_ => console.log('Connected to mySQL'))
     .catch( err => console.log("Did not connect to mySQL", err))
 
+sequelize.sync({ force: true })
+
 module.exports = {
     Sequelize: Sequelize,
     sequelize: sequelize
