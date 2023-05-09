@@ -21,8 +21,8 @@ module.exports = class SupplierController {
         }
 
         // Checking if supplier exists 
-        const supplierExists = await Supplier.findOne({ where: { cnpj: cnpj_supplier } })
-        if(supplierExists !== null) {
+        const supplier = await Supplier.findOne({ where: { cnpj: cnpj_supplier } })
+        if(supplier !== null) {
             response.status(420).json({ "message": "Fornecedor já está cadastrado!" })
             return
         } 
@@ -36,4 +36,25 @@ module.exports = class SupplierController {
           .catch( err => response.status(422).json({ message: 'Falha ao cadastrar fornecedor. Tente novamente! ' + err }));
     }
 
+    static async search(request, response) {
+
+        const { cnpj_supplier } = request.body;
+        
+        const supplier = await Supplier.findOne({ where: { cnpj: cnpj_supplier } })
+
+        if(supplier === null) {
+            response.status(420).json({ "message": "Fornecedor não existe na base de dados!" })
+            return
+        } else {
+            response.status(200).json(
+                {
+                    "id_supplier": supplier.id_fornecedorm,
+                    "email_supplier": supplier.email_fornecedor,
+                    "name_supplier": supplier.nome_fornecedor,
+                    "cnpj_supplier": supplier.cnpj
+                }
+            )
+        } 
+
+    }
 }
