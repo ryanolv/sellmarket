@@ -48,7 +48,7 @@ module.exports = class SupplierController {
         } else {
             response.status(200).json(
                 {
-                    "id_supplier": supplier.id_fornecedorm,
+                    "id_supplier": supplier.id_fornecedor,
                     "email_supplier": supplier.email_fornecedor,
                     "name_supplier": supplier.nome_fornecedor,
                     "cnpj_supplier": supplier.cnpj
