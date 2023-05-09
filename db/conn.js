@@ -7,8 +7,8 @@ const sequelize = new Sequelize('sellmarket', 'root', process.env.PASSWORD_ENV,{
 });
 
 sequelize.authenticate()
-    .then(_ => console.log('Conectou ao mySQL'))
-    .catch( err => console.log('Não conectou\n', err))
+    .then(_ => console.log('Connected to mySQL'))
+    .catch( err => console.log("Did not connect to mySQL", err))
 
 module.exports = {
     Sequelize: Sequelize,
