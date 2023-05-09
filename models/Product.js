@@ -16,6 +16,7 @@ const Product = conn.sequelize.define('produto', {
     }
 });
 
-// User.sync({ force: true })
+// If the table has already been created, comment the code below
+// Product.sync({ force: true })
 
 module.exports = Product;
