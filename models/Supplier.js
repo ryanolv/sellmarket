@@ -8,7 +8,7 @@ const Supplier = conn.sequelize.define('fornecedor', {
         allowNull: false
     },
     email_fornecedor: {
-        type: conn.Sequelize.INTEGER,
+        type: conn.Sequelize.STRING,
     },
     nome_fornecedor: {
         type: conn.Sequelize.STRING,
@@ -20,6 +20,6 @@ const Supplier = conn.sequelize.define('fornecedor', {
     },
 });
 
-// User.sync({ force: true })
+Supplier.sync({ force: true })
 
 module.exports = Supplier;
