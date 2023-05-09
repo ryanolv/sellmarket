@@ -1,6 +1,6 @@
 const conn = require('../db/conn')
 
-const Provider = conn.sequelize.define('produto', {
+const Supplier = conn.sequelize.define('fornecedor', {
     id_fornecedor: {
         type: conn.Sequelize.INTEGER.UNSIGNED,
         primaryKey: true,
@@ -9,7 +9,6 @@ const Provider = conn.sequelize.define('produto', {
     },
     email_fornecedor: {
         type: conn.Sequelize.INTEGER,
-        allowNull: false
     },
     nome_fornecedor: {
         type: conn.Sequelize.STRING,
@@ -23,4 +22,4 @@ const Provider = conn.sequelize.define('produto', {
 
 // User.sync({ force: true })
 
-module.exports = Provider;
+module.exports = Supplier;
