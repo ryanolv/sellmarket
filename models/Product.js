@@ -1,3 +1,4 @@
+const { DataTypes } = require('sequelize');
 const conn = require('../db/conn');
 const ProductSupplier = require('./ProductSupplier');   
 const Supplier = require('./Supplier');
@@ -9,7 +10,7 @@ const Product = conn.sequelize.define('produto', {
         allowNull: false
     },
     valor_produto: {
-        type: conn.Sequelize.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
     nome_produto: {

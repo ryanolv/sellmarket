@@ -44,7 +44,8 @@ module.exports = class ProductController {
         
         await ProductSupplier.create({
             cod_produto: newProduct.cod_produto,
-            id_fornecedor: supplier.id_fornecedor
+            id_fornecedor: supplier.id_fornecedor,
+            valor_fornecedor: newProduct.valor_produto
         });
         
         response.status(200).json({ message: "Produto Cadastrado com Sucesso." });

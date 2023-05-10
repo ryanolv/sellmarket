@@ -12,7 +12,7 @@ sequelize.authenticate()
 
 
 // To use when you'll update anything
-// sequelize.sync();
+sequelize.sync();
 
 module.exports = {
     Sequelize: Sequelize,
