@@ -26,8 +26,17 @@ const Product = conn.sequelize.define('produto', {
 );
 
 
-Product.belongsToMany(Supplier, { through: ProductSupplier})
-Supplier.belongsToMany(Product, { through: ProductSupplier})
+Product.belongsToMany(Supplier, {
+    through: ProductSupplier,
+    foreignKey: 'cod_produto',
+    otherKey: 'id_fornecedor'
+});
+
+Supplier.belongsToMany(Product, {
+    through: ProductSupplier,
+    foreignKey: 'id_fornecedor',
+    otherKey: 'cod_produto'
+});
 
 
 module.exports = Product;

@@ -1,5 +1,6 @@
 const Product = require('../models/Product');
 const Supplier = require('../models/Supplier');
+const ProductSupplier = require('../models/ProductSupplier'); 
 
 module.exports = class ProductController {
 
@@ -23,27 +24,33 @@ module.exports = class ProductController {
         
         // Checking if supplier exists
         const supplier = await Supplier.findByPk(id_supplier);
-        if(!supplier) {
-            response.status(400).json({ message: "Fornecedor não existe." })
-            return
+        if (!supplier) {
+        response.status(400).json({ message: "Fornecedor não existe." });
+        return;
         }
 
-        // Checking if products already exists
         const product = await Product.findByPk(code_product);
-        if(product) {
-            response.status(400).json({ message: "Produto já está registrado."});
-            return
-        } 
-        
-        // Creating product in the database
+        if (product) {
+        response.status(400).json({ message: "Produto já está registrado." });
+        return;
+        }
+
+        try {
         const newProduct = await Product.create({
             cod_produto: code_product,
             valor_produto: value_product,
             nome_produto: name_product,
-        }).then(response.status(200).json({ message: "Produto Cadastrado com Sucesso." })
-        ).catch(error => response.status(400).json({ message: `Aconteceu este err: ${error}`}));
+        });
         
-        await newProduct.addSuppliers(supplier);
+        await ProductSupplier.create({
+            produtoCodProduto: newProduct.cod_produto,
+            fornecedorIdFornecedor: supplier.id_fornecedor
+        });
+        
+        response.status(200).json({ message: "Produto Cadastrado com Sucesso." });
+        } catch (error) {
+        response.status(400).json({ message: `Aconteceu este erro: ${error}` });
+        }
     }
     
     static async search(request, response) {
@@ -107,8 +114,7 @@ module.exports = class ProductController {
                 response.status(400).json({ message: "Dados inseridos não batem com o do produto registrado."})
             }
 
-            
-            
         }
+
 }
 
