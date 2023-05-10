@@ -19,7 +19,11 @@ const Supplier = conn.sequelize.define('fornecedor', {
         allowNull: false,
         unique: true
     },
-});
+}, 
+{
+    freezeTableName: true, // Model tableName will be the same as the model name
+}
+);
 
 
 module.exports = Supplier;

@@ -44,7 +44,7 @@ module.exports = class ProductController {
         ).then(response.status(200).json({ message: "Produto Cadastrado com Sucesso." })
         ).catch(error => response.status(400).json({ message: `Aconteceu este err: ${error}`}));
         
-        await Product.addSupplier([supplier]);
+        await newProduct.addSupplier(supplier);
         
     }
     

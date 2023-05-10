@@ -16,7 +16,11 @@ const Product = conn.sequelize.define('produto', {
         type: conn.Sequelize.STRING,
         allowNull: false
     }
-});
+}, 
+    {
+        freezeTableName: true, // Model tableName will be the same as the model name
+    }
+);
 
 Product.belongsToMany(Supplier, {
     through: {
