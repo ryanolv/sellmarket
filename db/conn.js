@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 require('custom-env').env();
 
-const sequelize = new Sequelize('sellmarket', 'root', process.env.PASSWORD_ENV,{
-    host: 'localhost',
+const sequelize = new Sequelize(process.env.DATABASE_ENV, process.env.USER_ENV, process.env.PASSWORD_ENV,{
+    host: process.env.HOST_ENV,
     dialect: 'mysql'
 });
 
@@ -12,7 +12,7 @@ sequelize.authenticate()
 
 
 // To use when you'll update anything
-sequelize.sync();
+// sequelize.sync();
 
 module.exports = {
     Sequelize: Sequelize,
