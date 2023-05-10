@@ -1,5 +1,5 @@
 const conn = require('../db/conn');
-const ProductSupplier = require('./ProductSupplier');
+const ProductSupplier = require('./ProductSupplier');   
 const Supplier = require('./Supplier');
 
 const Product = conn.sequelize.define('produto', {
@@ -19,25 +19,15 @@ const Product = conn.sequelize.define('produto', {
 }, 
     {
         freezeTableName: true, // Model tableName will be the same as the model name
+        classMethods: {
+            
+        }
     }
 );
 
-Product.belongsToMany(Supplier, {
-    through: {
-        model: ProductSupplier
-    },
-    foreignKey: 'id_fornecedor',
-    constraints: true
-});
 
-
-Supplier.belongsToMany(Product, {
-    through: {
-        model: ProductSupplier
-    },
-    foreignKey: 'cod_produto',
-    constraints: true
-});
+Product.belongsToMany(Supplier, { through: ProductSupplier})
+Supplier.belongsToMany(Product, { through: ProductSupplier})
 
 
 module.exports = Product;

@@ -40,12 +40,10 @@ module.exports = class ProductController {
             cod_produto: code_product,
             valor_produto: value_product,
             nome_produto: name_product,
-        },
-        ).then(response.status(200).json({ message: "Produto Cadastrado com Sucesso." })
+        }).then(response.status(200).json({ message: "Produto Cadastrado com Sucesso." })
         ).catch(error => response.status(400).json({ message: `Aconteceu este err: ${error}`}));
         
-        await newProduct.addSupplier(supplier);
-        
+        await newProduct.addSuppliers(supplier);
     }
     
     static async search(request, response) {
