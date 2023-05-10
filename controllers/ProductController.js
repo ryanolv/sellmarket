@@ -1,10 +1,11 @@
 const Product = require('../models/Product');
+const Supplier = require('../models/Supplier');
 
 module.exports = class ProductController {
 
     static async register(request, response) {
 
-        const { code_product, value_product, name_product } = request.body;
+        const { code_product, value_product, name_product, id_supplier } = request.body;
 
         // Validating the datas
         if(!code_product) {
@@ -16,20 +17,34 @@ module.exports = class ProductController {
         if(!name_product) {
             response.status(400).json({ messagem: "Nome do produto inválido."});
         }
+        if(!id_supplier) {
+            response.status(400).json({ messagem: "Id do fornecedor inválido."});
+        }
+        
+        // Checking if supplier exists
+        const supplier = await Supplier.findByPk(id_supplier);
+        if(!supplier) {
+            response.status(400).json({ message: "Fornecedor não existe." })
+            return
+        }
 
         // Checking if products already exists
         const product = await Product.findByPk(code_product);
         if(product) {
-            response.status(400).json({ message: "Produto já está registrado"});
+            response.status(400).json({ message: "Produto já está registrado."});
             return
         } 
         
-        await Product.create({
+        // Creating product in the database
+        const newProduct = await Product.create({
             cod_produto: code_product,
             valor_produto: value_product,
-            nome_produto: name_product
-        }).then(response.status(200).json({ message: "Produto Cadastrado com Sucesso." })
+            nome_produto: name_product,
+        },
+        ).then(response.status(200).json({ message: "Produto Cadastrado com Sucesso." })
         ).catch(error => response.status(400).json({ message: `Aconteceu este err: ${error}`}));
+        
+        await Product.addSupplier([supplier]);
         
     }
     

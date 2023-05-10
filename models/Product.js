@@ -19,19 +19,21 @@ const Product = conn.sequelize.define('produto', {
 });
 
 Product.belongsToMany(Supplier, {
-    through: ProductSupplier,
+    through: {
+        model: ProductSupplier
+    },
     foreignKey: 'id_fornecedor',
     constraints: true
 });
 
 
 Supplier.belongsToMany(Product, {
-    through: ProductSupplier,
+    through: {
+        model: ProductSupplier
+    },
     foreignKey: 'cod_produto',
     constraints: true
 });
 
-// If the table has already been created, comment the code below
-// Product.sync({ force: true })
 
 module.exports = Product;

@@ -8,9 +8,11 @@ const sequelize = new Sequelize('sellmarket', 'root', process.env.PASSWORD_ENV,{
 
 sequelize.authenticate()
     .then(_ => console.log('Connected to mySQL'))
-    .catch( err => console.log("Did not connect to mySQL", err))
+    .catch( err => console.log("Did not connect to mySQL", err));
 
-sequelize.sync({ force: true })
+
+// To use when you'll update anything
+// sequelize.sync();
 
 module.exports = {
     Sequelize: Sequelize,

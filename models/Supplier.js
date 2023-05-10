@@ -21,7 +21,5 @@ const Supplier = conn.sequelize.define('fornecedor', {
     },
 });
 
-// If the table has already been created, comment the code below
-// Supplier.sync({ force: true })
 
 module.exports = Supplier;

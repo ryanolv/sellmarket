@@ -1,6 +1,4 @@
 const conn = require('../db/conn');
-const Supplier = require('./Supplier');
-const Product = require('./Product');
 
 const ProductSupplier = conn.sequelize.define('fornece', {
 
