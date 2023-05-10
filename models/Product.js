@@ -9,7 +9,7 @@ const Product = conn.sequelize.define('produto', {
         allowNull: false
     },
     valor_produto: {
-        type: conn.Sequelize.DECIMAL,
+        type: conn.Sequelize.DECIMAL(10, 2),
         allowNull: false
     },
     nome_produto: {

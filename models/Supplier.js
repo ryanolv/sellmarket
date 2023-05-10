@@ -17,7 +17,6 @@ const Supplier = conn.sequelize.define('fornecedor', {
     cnpj: {
         type: conn.Sequelize.STRING,
         allowNull: false,
-        unique: true
     },
 }, 
 {
