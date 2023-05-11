@@ -1,0 +1,49 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de cadastro e pesquisa de usuário",
+        "description": "API tem como objetivo cadastrar usuário na base de dados e buscar com base no cpf",
+        "version": "1.0.0"
+    },
+    "contact": {
+        "email": "_ryan.00@academico.ufs.br"
+    },
+    "paths": {
+        "/products/register": {
+            "post": {
+                "summary": "Cadastro de produtos",
+                "description": "Rota responsável por cadastrar produtos"
+                }
+            },
+        "/products/search": {
+            "get": {
+                "summary": "Resgatar dados de produtos",
+                "description": "Rota responsável por resgatar dados de produtos pelo codigo"
+                }
+            },
+        "/products/remove": {
+            "delete": {
+                "summary": "Deletar dados de produtos",
+                "description": "Rota responsável por deletar produto"
+                }
+            },
+        "/supplier/register": {
+            "post": {
+                "summary": "Registrar fornecedor ",
+                "description": "Rota responsável por registrar fornecedor"
+                }
+            },
+        "/supplier/search": {
+            "get": {
+                "summary": "Pesquisar por fornecedor",
+                "description": "Rota responsável por pesquisar por fornecedor pelo cnpj"
+                }
+            },
+        "/supplier/remove": {
+            "delete": {
+                "summary": "Deletar fornecedor",
+                "description": "Rota responsável por deletar fornecedor"
+                }
+            }
+        }
+}
