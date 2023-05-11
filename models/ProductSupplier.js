@@ -7,7 +7,8 @@ const ProductSupplier = conn.sequelize.define('fornece', {
         allowNull: false
     }
 }, 
-{
+{   
+    timestamp: false,
     freezeTableName: true, // Model tableName will be the same as the model name
 }
 );

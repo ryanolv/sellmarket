@@ -20,6 +20,7 @@ const Supplier = conn.sequelize.define('fornecedor', {
     },
 }, 
 {
+    timestamp: false,
     freezeTableName: true, // Model tableName will be the same as the model name
 
 }
