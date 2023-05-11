@@ -83,8 +83,48 @@ module.exports = class SupplierController {
         }
 
         await Supplier.destroy({ where: { id_funcionario: id_supplier }})
-                .then(response.status(200).json({ message: "Fornecedor deletado com sucesso!" })
-                ).catch(err => response.status(400).json({ message: "Não foi possível deletar fornecedor:", err }));
+                .then(() => {
+                    response.status(200).json({ message: "Fornecedor deletado com sucesso!" });
+                })
+                .catch(() => {
+                    response.status(400).json({ message: "Não foi possível deletar fornecedor." });
+                })
             
+    }
+
+    static async updateName(request, response) {
+
+        const { id_supplier, name_supplier } = request.body
+
+        
+        try {
+            const supplier = await Supplier.findByPk(id_supplier);
+            supplier.nome_fornecedor = name_supplier
+            supplier.save();
+
+            response.status(200).json({ message: "Nome atualizado com sucesso."})
+
+        } catch(error) {
+            response.status(400).json({ message: "Não foi possivel atualizar o nome. "})
+        }
+
+    }
+
+    static async updateEmail(request, response) {
+
+        const { id_supplier, email_supplier } = request.body
+
+        
+        try {
+            const supplier = await Supplier.findByPk(id_supplier);
+            supplier.email_fornecedor = email_supplier
+            await supplier.save();
+
+            response.status(200).json({ message: "Email atualizado com sucesso."})
+
+        } catch(error) {
+            response.status(400).json({ message: "Não foi possivel atualizar o email. "})
+        }
+        
     }
 }

@@ -44,6 +44,18 @@
                 "summary": "Deletar fornecedor",
                 "description": "Rota responsável por deletar fornecedor"
                 }
+            },
+        "/supplier/update-name": {
+            "put": {
+                "summary": "Atualizar nome fornecedor",
+                "description": "Rota responsável por atualizar nome do fornecedor"
+                }
+            },
+        "/supplier/update-email": {
+            "put": {
+                "summary": "Atualizar email fornecedor",
+                "description": "Rota responsável por atualizar email fornecedor"
+                }
             }
         }
 }

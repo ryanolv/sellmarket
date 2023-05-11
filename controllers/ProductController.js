@@ -109,7 +109,7 @@ module.exports = class ProductController {
             // Deleting the product
             if(name_product === product.nome_produto && value_product == product.valor_produto) {
                 await Product.destroy({ where: { cod_produto: code_product }})
-                    .then(response.status(200).json({ message: "Produto deletado com sucesso!" })
+                    .then(_ => response.status(200).json({ message: "Produto deletado com sucesso!" })
                     ).catch(err => response.status(400).json({ message: "Não foi possível deletar o produto:", err }));
             } else{
                 response.status(400).json({ message: "Dados inseridos não batem com o do produto registrado."})
